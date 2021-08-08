@@ -113,7 +113,7 @@ export default function Meals({ menu }) {
     
     setOrders(cart.reverse());
 
-    user_location && setLocation(user_location);
+    user_location && setLocation(JSON.parse(user_location).name);
     menu && localStorage.setItem("menu", JSON.stringify(menu));
     // eslint-disable-next-line
   }, [location]);

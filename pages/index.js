@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useRouter } from 'next/dist/client/router';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -99,7 +100,7 @@ const Wrapper = styled.div`
   }
 `
 
-export default function Home() {
+export default function Home({locations}) {
   const [alertText, setAlertText] = useState("");
   const [success, setSuccess] = useState(false);
   const [location, setLocation] = useState("Select your location");
@@ -120,10 +121,11 @@ export default function Home() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const location = document.querySelector(".locationInput").value;
-    const locations = ["Bodija", "Agbowo - UI", "General gas - Akobo", "Ikolaba"];
+    const _locations = locations.map(item => item.name);
 
-    if (locations.includes(location)) {
-      localStorage.setItem("user_location", location);
+    if (_locations.includes(location)) {
+      const user_location = locations.find(item => item.name === location);
+      localStorage.setItem("user_location", JSON.stringify(user_location));
       router.push("/meals");
     } else {
       showAlert("Please select a location", false);
@@ -146,7 +148,7 @@ export default function Home() {
             <h1 className="text2">Blunch.ng</h1>
             <h5 className="text3">Breakfast at your doorstep</h5>
             <form onSubmit={handleSubmit}>
-              <Dropdown id="locationInput" name="location" className="dropdown" value={location} setValue={setLocation} />
+              <Dropdown id="locationInput" name="location" className="dropdown" list={locations} value={location} setValue={setLocation} />
               <Button text="View meals" fullWidth />
             </form>
           </div>
@@ -160,4 +162,24 @@ export default function Home() {
       </Layout>
     </>
   )
+}
+
+export async function getStaticProps() {
+  const res = await axios.get('https://order.blunch.ng/api/locations');
+  const locations = res.data?.locations;
+
+  if (!locations) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
+
+  return {
+    props: {
+      locations
+    }
+  }
 }

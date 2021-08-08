@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useRouter } from 'next/dist/client/router';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -17,11 +18,65 @@ const Wrapper = styled(Container)`
     margin-bottom: 4.8rem;
   }
 
-  .content {
+  .content, .info {
     width: 100%;
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: 4.8rem;
+  }
+
+  .info .group {
+    display: grid;
+    grid-gap: 1.6rem;
+
+    .title {
+      font-weight: 700;
+    }
+  }
+
+  .order {
+    display: grid;
+    grid-template-columns: 1fr 3fr 2fr;
+    align-items: center;
+    grid-gap: 1.6rem;
+    padding-block: 1.6rem;
+
+    .quantity, .mealName, .price {
+      font-weight: 700;
+    }
+
+    .price {
+      text-align: right;
+    }
+  }
+
+  .summation {
+    padding-block: 1.6rem;
+    display: grid;
+    grid-gap: 1.6rem;
+    border-top: 1px solid var(--border_color);
+    border-bottom: 1px solid var(--border_color);
+
+    .item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1.6rem;
+  }
+
+  .actionBtns {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1.6rem;
+    margin-top: 3.2rem;
   }
 
   .lg {
@@ -40,6 +95,20 @@ const Wrapper = styled(Container)`
       grid-gap: 10.8rem;
     }
 
+    .order {
+      grid-template-columns: 1fr 3fr 2fr;
+      padding: 2.4rem 4.8rem;
+      border-bottom: none;
+    }
+
+    .actionBtns {
+      width: 40%;
+      margin: auto;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 4.8rem;
+      margin-top: 4.8rem;
+    }
+
     .mb {
       display: none
     }
@@ -50,58 +119,107 @@ const Wrapper = styled(Container)`
   }
 `
 
+const formatNumber = (num) => {
+  const formatter = new Intl.NumberFormat()
+  const toNum = Number(num);
+
+  return formatter.format(toNum);
+};
+
 const Review = () => {
   const router = useRouter();
-  const [details, setDetails] = useState(false);
+  const [orders, setOrders] = useState(false);
+  const [deliveryInfo, setDeliveryInfo] = useState(false)
+  const [location, setLocation] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const makeOrder = (e) => {
-    
-    router.push("/review");
+  const makeOrder = async (e) => {
+    const url = 'https://order.blunch.ng/api/order'
+    const meals = orders.map(order => ({
+      id: order.id,
+      quantity: order.quantity,
+      day_id: order.pivot.day_id,
+      date: (new Date()).toLocaleDateString()
+    }));
+    const user_location = localStorage.getItem("user_location");
+
+    const location_id = user_location?.id;
+
+    setLoading(true);
+
+    const res = await axios.post(`${url}?name=${deliveryInfo.name}&phone=${deliveryInfo.phone}&location_id=${location_id}&email=${deliveryInfo.email}&address=${deliveryInfo.delivery_address}`, {meals})
+
+    setLoading (false);
+
+    if (res.data.status === "success") {
+
+    }
   }
 
   useEffect(() => {
     const cart = localStorage.getItem("cart");
+    const delivery_info = localStorage.getItem("delivery_info");
+    const user_location = localStorage.getItem("user_location");
 
-    cart && setDetails(JSON.parse(cart));
+    cart && setOrders(JSON.parse(cart));
+    delivery_info && setDeliveryInfo(JSON.parse(delivery_info));
+    user_location && setLocation(JSON.parse(user_location).name);
     // eslint-disable-next-line
   }, [])
+
   return (
     <Layout>
       <Wrapper id="review">
         <h2 className="heading">Review orders</h2>
-        {details && <div className="content">
+        {orders && deliveryInfo && <div className="content">
           <div className="cart">
-            <div className="summation">
-              <div className="small subTotal">
-                <span></span>
-                <span></span>
+            {orders.map((order, index) => (
+              <div key={`${index}${order.id}`} className="order">
+                <div>
+                  <h4 className="quantity">{order.quantity}</h4>
+                </div>
+                <div>
+                  <h5 className="mealName">{order.name}</h5>
+                </div>
+                <div>
+                  <p className="price">NGN {formatNumber(order.total)}</p>
+                </div>
               </div>
-              <div className="small deliveryFee">
-                <span></span>
-                <span></span>
+            ))}
+            <div className="summation">
+              <div className="small item">
+                <span>Sub-total ({orders.length} order{orders.length > 1 ? "s" : ""})</span>
+                <span>NGN {formatNumber(orders.reduce((a, b) => a + b.total, 0))}</span>
+              </div>
+              <div className="small item">
+                <span>Delivery fee</span>
+                <span>NGN 400</span>
               </div>
             </div>
-            <div className="small total">
-              <span></span>
-              <span></span>
+            <div className="sup total">
+              <span>Total</span>
+              <span>NGN {formatNumber(orders.reduce((a, b) => a + b.total, 400))}</span>
             </div>
           </div>
           <div className="info">
             <div className="group">
-              <h5 className="title"></h5>
-              <p></p>
-              <p></p>
-              <p></p>
+              <h5 className="title">Customer information</h5>
+              <p>{deliveryInfo?.name}</p>
+              <p>{deliveryInfo?.email}</p>
+              <p>{deliveryInfo?.phone}</p>
             </div>
             <div className="group">
-              <h5 className="title"></h5>
-              <p></p>
-              <p></p>
-              <p></p>
+              <h5 className="title">Delivery information</h5>
+              <p>{location}</p>
+              <p>{deliveryInfo?.delivery_address}</p>
+              <p>{deliveryInfo?.instructions}</p>
             </div>
-            <Button text="Make payment" className="btn" fullWidth />
           </div>
         </div>}
+        <div className="actionBtns">
+            <Button text="Add more items" className="bordered" fullWidth onClick={() => router.push("/meals")}  />
+            <Button text="Make payment" fullWidth onClick={makeOrder} loading={loading} />
+          </div>
       </Wrapper>
     </Layout>
   )

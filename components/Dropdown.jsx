@@ -75,7 +75,7 @@ const DropdownWrapper = styled.div`
   }
 `
 
-const Dropdown = ({className, name, value = "Select your location", setValue, list = ["Bodija", "Agbowo - UI", "General gas - Akobo", "Ikolaba"], hasIcon, icon, id, readOnly}) => {
+const Dropdown = ({className, name, value, setValue, list, hasIcon, icon, id, readOnly}) => {
 
   const toggleList = () => {
     if (readOnly) return;
@@ -98,7 +98,7 @@ const Dropdown = ({className, name, value = "Select your location", setValue, li
         {!hasIcon && <Image src="/chevron_down.svg" height="16" width="16" alt="down" className="toggleIcon" />}
       </div>
       <div className="list">
-        {list.map(item => <button key={item} className="listItem"onClick={(e) => handleSelect(e, item)}>{item}</button>)}
+        {!!list?.length && list.map(item => <button key={item.id} className="listItem"onClick={(e) => handleSelect(e, item.name)}>{item.name}</button>)}
       </div>
     </DropdownWrapper>
   )
