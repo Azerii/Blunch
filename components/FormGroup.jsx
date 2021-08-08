@@ -10,8 +10,8 @@ const Wrapper = styled.div`
   justify-content: center;
   background-color: var(--white);
   border-radius: 1rem;
-  padding: ${props => props.fieldStyle === "dropdown" ? 0 : "0 1.6rem"};
-  height: 4.8rem;
+  padding: ${props => props.fieldStyle === "dropdown" ? 0 : props.fieldStyle === "longText" ? "1.6rem" : "0 1.6rem"};
+  height: ${props => props.fieldStyle === "longText" ? "max-content" : "4.8rem"};
   border: ${props => props.fieldStyle === "dropdown" ? "none" : "1px solid var(--border_color)"};
   position: relative;
 
@@ -23,7 +23,7 @@ const Wrapper = styled.div`
     width: 100%;
     background-color: transparent;
     border: none;
-    font-family: Gordita;
+    font-family: var(--font1);
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -118,9 +118,6 @@ const FormGroup = ({
   options = [],
   defaultValue,
   disabled,
-  readOnly,
-  hasIcon,
-  icon
 }) => {
   const [showLabel, setShowLabel] = useState(false);
 
@@ -222,9 +219,6 @@ FormGroup.propTypes = {
   required: PropTypes.bool,
   options: PropTypes.array,
   disabled: PropTypes.bool,
-  readOnly: PropTypes.bool,
-  hasIcon: PropTypes.bool,
-  icon: PropTypes.any
 };
 
 export default FormGroup;

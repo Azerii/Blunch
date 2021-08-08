@@ -59,19 +59,38 @@ const Wrapper = styled.div`
   }
 `
 
-const MealCard = ({img, mealName, mealPrice}) => {
+const formatNumber = (num) => {
+  const formatter = new Intl.NumberFormat()
+  const toNum = Number(num);
+
+  return formatter.format(toNum);
+};
+
+const MealCard = (props) => {
+  const { photo, name, price, day, id, handleMealSelect } = props;
+
   const handleClick = (e) => {
     e.stopPropagation();
-    document.querySelector("#addToCart").classList.add("open");
+
+    let selected_meal = {
+      ...props,
+      day,
+      photo: "/temp_meal.png",
+      quantity: 1
+    }
+
+    localStorage.setItem("selected_meal", JSON.stringify(selected_meal));
+
+    handleMealSelect && handleMealSelect();
   }
   return (
     <Wrapper>
       <div className="imgWrapper">
-        {img && <Image src={img} alt={mealName} height="100px" width="100px" />}
+        {photo && <Image src={photo || "/temp_meal.png"} alt={name} height="100px" width="100px" />}
       </div>
       <div className="content">
-        <h4 className="mealName">{mealName}</h4>
-        <p className="sup mealPrice">NGN {mealPrice}</p>
+        <h4 className="mealName">{name}</h4>
+        <p className="sup mealPrice">NGN {formatNumber(price)}</p>
         <Button className="btn sup" text="Add to cart" onClick={handleClick} />
       </div>
     </Wrapper>
@@ -79,9 +98,11 @@ const MealCard = ({img, mealName, mealPrice}) => {
 }
 
 MealCard.propTypes = {
-  img: PropTypes.any,
-  mealName: PropTypes.string.isRequired,
-  mealPrice: PropTypes.string.isRequired
+  photo: PropTypes.any,
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  day: PropTypes.string,
+  handleMealSelect: PropTypes.func
 }
 
 export default MealCard;

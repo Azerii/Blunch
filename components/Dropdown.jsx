@@ -75,8 +75,7 @@ const DropdownWrapper = styled.div`
   }
 `
 
-const Dropdown = ({className, name, defaultValue = "Select your location", list = ["Bodija", "Agbowo - UI", "General gas - Akobo", "Ikolaba"], hasIcon, icon, id, readOnly}) => {
-  const [location, setLocation] = useState(defaultValue);
+const Dropdown = ({className, name, value = "Select your location", setValue, list = ["Bodija", "Agbowo - UI", "General gas - Akobo", "Ikolaba"], hasIcon, icon, id, readOnly}) => {
 
   const toggleList = () => {
     if (readOnly) return;
@@ -87,21 +86,15 @@ const Dropdown = ({className, name, defaultValue = "Select your location", list 
     e.preventDefault();
     e.stopPropagation();
     toggleList();
-    setLocation(l);
+    setValue(l);
   }
-
-  useEffect(() => {
-    setLocation(defaultValue);
-
-    //eslint-disable-next-line
-  }, [])
 
   return (
     <DropdownWrapper id={id} className={`dWrapper${hasIcon ? " hasIcon" : ""} ${className ?? ""}`}>
       <div className="header" onClick={toggleList}>
-        <input type="text" name={name} value={location} readOnly className="locationInput" />
+        <input type="text" name={name} value={value} readOnly className="locationInput" />
         {hasIcon && icon && <Image src={icon} alt="icon" className="iconLeft" height="16" width="16" />}
-        <p className="sup title">{location}</p>
+        <p className="sup title">{value}</p>
         {!hasIcon && <Image src="/chevron_down.svg" height="16" width="16" alt="down" className="toggleIcon" />}
       </div>
       <div className="list">
@@ -114,7 +107,8 @@ const Dropdown = ({className, name, defaultValue = "Select your location", list 
 Dropdown.propTypes = {
   className: PropTypes.string,
   name: PropTypes.string,
-  defaultValue: PropTypes.string,
+  value: PropTypes.string,
+  setValue: PropTypes.func.isRequired,
   list: PropTypes.array,
   hasIcon: PropTypes.bool,
   icon: PropTypes.any,

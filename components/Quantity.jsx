@@ -61,15 +61,14 @@ const Wrapper = styled.div`
   }
 `;
 
-const Quantity = ({light, defaultVal = 1}) => {
-  const [quantity, setQuantity] = useState(defaultVal);
+const Quantity = ({light, value = 1, setValue}) => {
 
   const increment = () => {
-    quantity >= 1 && setQuantity(quantity + 1);
+    value >= 1 && setValue(value + 1);
   };
 
   const decrement = () => {
-    quantity > 1 && setQuantity(quantity - 1);
+    value > 1 && setValue(value - 1);
   };
 
   return (
@@ -77,7 +76,7 @@ const Quantity = ({light, defaultVal = 1}) => {
       <button
         className="row"
         onClick={() => decrement()}
-        disabled={quantity <= 1}
+        disabled={value <= 1}
       >
         {!light && <Image src={minusPrimary} alt="minus" className="icon" />}
         {light && <Image src={minusLight} alt="minus" className="icon" />}
@@ -86,7 +85,7 @@ const Quantity = ({light, defaultVal = 1}) => {
         id="quantity"
         type="number"
         name="quantity"
-        value={quantity}
+        value={value}
         readOnly
       />
       <button
@@ -102,7 +101,8 @@ const Quantity = ({light, defaultVal = 1}) => {
 
 Quantity.propTypes = {
   light: PropTypes.bool,
-  defaultVal: PropTypes.number
+  value: PropTypes.number,
+  setValue: PropTypes.func
 }
 
 export default Quantity;

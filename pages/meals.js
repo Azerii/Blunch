@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { useRouter } from 'next/dist/client/router'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
@@ -7,8 +8,7 @@ import Container from '../components/Container'
 import Dropdown from '../components/Dropdown'
 import Layout from '../components/Layout'
 import MealCard from '../components/MealCard'
-import { tempMeals } from '../components/mockData'
-import PreCheckout from '../components/PreCheckout'
+import PreCheckout from '../components/Cart'
 
 const Wrapper = styled(Container)`
 
@@ -69,6 +69,10 @@ const Section = styled.div`
   grid-gap: 2.4rem;
   margin: 3.2rem 0;
 
+  .title {
+    text-transform: capitalize;
+  }
+
   @media screen and (min-width: 768px) {
     grid-template-columns: 1fr 1fr;
     grid-gap: 3.2rem;
@@ -79,50 +83,90 @@ const Section = styled.div`
   }
 `
 
-// const formatNumber = (num) => {
-//   const formatter = new Intl.NumberFormat()
-//   const toNum = Number(num);
+export default function Meals({ menu }) {
+  const [location, setLocation] = useState("...");
+  const [selectedMeal, setSelectedMeal] = useState(false);
+  const [orders, setOrders] = useState(false);
 
-//   return formatter.format(toNum);
-// };
-
-export default function Meals() {
-  const [location, setLocation] = useState("Select your location");
   const router = useRouter();
+
+  const handleMealSelect = () => {
+    const menu = JSON.parse(localStorage.getItem("menu"));
+    const selected_meal = JSON.parse(localStorage.getItem("selected_meal"));
+
+    const mealData = menu[selected_meal.day].find(meal => meal.id === selected_meal.id);
+
+    mealData && setSelectedMeal(mealData);
+    document.querySelector("#addToCart").classList.add("open");
+  }
 
   useEffect(() => {
     const user_location = localStorage.getItem("user_location");
+    let cart;
+
+    if (!localStorage.getItem("cart")) {
+      cart = [];
+      localStorage.setItem("cart", JSON.stringify(cart))
+    }
+
+    cart = JSON.parse(localStorage.getItem("cart"));
+    
+    setOrders(cart.reverse());
+
     user_location && setLocation(user_location);
+    menu && localStorage.setItem("menu", JSON.stringify(menu));
     // eslint-disable-next-line
-  }, []);
+  }, [location]);
 
   return (
     <Layout>
-      <AddToCart />
-      <PreCheckout />
+      <AddToCart content={selectedMeal} setOrders={setOrders} />
+      <PreCheckout orders={orders} setOrders={setOrders} />
       <Wrapper>
         <Header>
           <div className="inner">
-            <Dropdown id="locationInput" className="locationInput" name="location" defaultValue={location} name="location" hasIcon icon="/map_pin.svg" readOnly />
+            <Dropdown id="locationInput" className="locationInput" name="location" setValue={setLocation} value={location} name="location" hasIcon icon="/map_pin.svg" readOnly />
             <Button className="change" text="Change" fullWidth onClick={() => router.push("/")} />
           </div>
         </Header>
         <div className="content">
           <div className="listing">
-            {Object.keys(tempMeals).map(day => (
+            {menu && Object.keys(menu).map(day => (
               <Section key={day}>
               <div className="title">
-                <h3>{tempMeals[day]?.title}</h3>
+                <h3>{day}</h3>
               </div>
-              {tempMeals[day]?.meals?.map(meal => (
-                <MealCard key={meal.mealName} img={meal.img} mealName={meal.mealName} mealPrice={meal.mealPrice} />
+              {menu[day]?.map((meal, index) => (
+                <MealCard key={`${index}${meal.id}`} {...meal} day={day} handleMealSelect={handleMealSelect} />
               ))}
             </Section>
             ))}
           </div>
-          <PreCheckout lg />
+          <PreCheckout lg orders={orders}setOrders={setOrders} />
         </div>
       </Wrapper>
     </Layout>
   )
+}
+
+export async function getStaticProps() {
+  const res = await axios.get('https://order.blunch.ng/api/menu');
+  const menu = res.data;
+
+  if (menu) delete menu.status;
+
+  if (!menu) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
+
+  return {
+    props: {
+      menu
+    }
+  }
 }

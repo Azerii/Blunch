@@ -102,6 +102,7 @@ const Wrapper = styled.div`
 export default function Home() {
   const [alertText, setAlertText] = useState("");
   const [success, setSuccess] = useState(false);
+  const [location, setLocation] = useState("Select your location");
   const router = useRouter();
 
   const showAlert = (msg = "...", _success = false) => {
@@ -145,7 +146,7 @@ export default function Home() {
             <h1 className="text2">Blunch.ng</h1>
             <h5 className="text3">Breakfast at your doorstep</h5>
             <form onSubmit={handleSubmit}>
-              <Dropdown id="locationInput" name="location" className="dropdown" />
+              <Dropdown id="locationInput" name="location" className="dropdown" value={location} setValue={setLocation} />
               <Button text="View meals" fullWidth />
             </form>
           </div>

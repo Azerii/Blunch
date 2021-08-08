@@ -1,8 +1,10 @@
+import PropTypes from 'prop-types';
 import Image from 'next/image';
 import styled from 'styled-components';
 import close from '../public/close.svg';
 import Button from './Button';
 import Quantity from './Quantity';
+import { useState } from 'react';
 
 const Wrapper = styled.div`
   position: fixed;
@@ -123,7 +125,8 @@ const Content = styled.div`
   }
 `
 
-const AddToCart = () => {
+const AddToCart = ({ content, setOrders }) => {
+  const [quantity, setQuantity] = useState(1);
 
   const handleClose = (e) => {
     e.stopPropagation();
@@ -132,30 +135,57 @@ const AddToCart = () => {
 
   const handleAddToCart = (e) => {
     e.stopPropagation();
+
+    let cart;
+
+    if (!localStorage.getItem("cart")) {
+      cart = [];
+      localStorage.setItem("cart", JSON.stringify(cart))
+    }
+
+    cart = JSON.parse(localStorage.getItem("cart"));
+
+    const quantity = document.querySelector("input#quantity").value;
+    const selected_meal = JSON.parse(localStorage.getItem("selected_meal"));
+    
+    selected_meal.quantity = Number(quantity);
+    selected_meal.total = selected_meal.price * selected_meal.quantity;
+
+    cart.unshift(selected_meal);
+
+    setOrders(cart);
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
     document.querySelector("#addToCart").classList.remove("open");
-    document.querySelector("#preCheckout").classList.add("open");
+    document.querySelector("#cart").classList.add("open");
   };
 
   return (
     <Wrapper id="addToCart">
-      <Content className="content">
+      {content && <Content className="content">
         <div className="header">
-          <h4>Chicken Stirfry Noodles</h4>
+          <h4>{content.name}</h4>
           <button className="closeBtn" onClick={handleClose}>
             <Image src={close} alt="close" />
           </button>
         </div>
         <div className="imgWrapper">
-          <img src="/temp_meal.png" alt="meal"  />
+          <img src={content.photo || "/temp_meal.png"} alt="meal"  />
         </div>
-        <Quantity />
+        <Quantity value={quantity} setValue={setQuantity} />
         <div className="actionBtns">
-          <Button text="Cancel" className="bordered" fullWidth  />
+          <Button text="Cancel" className="bordered" fullWidth onClick={handleClose}  />
           <Button text="Add to cart" fullWidth onClick={handleAddToCart}  />
         </div>
-      </Content>
+      </Content>}
     </Wrapper>
   )
+}
+
+AddToCart.propTypes = {
+  content: PropTypes.any,
+  setOrders: PropTypes.func
 }
 
 export default AddToCart;
