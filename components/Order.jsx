@@ -53,6 +53,7 @@ const Order = ({_quantity, name, total, light, handleRemove, index, orders, setO
 
   useEffect(() => {
     handleQuanityChange();
+    // eslint-disable-next-line
   }, [quantity])
 
   return (

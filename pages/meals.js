@@ -125,7 +125,7 @@ export default function Meals({ menu }) {
       <Wrapper>
         <Header>
           <div className="inner">
-            <Dropdown id="locationInput" className="locationInput" name="location" setValue={setLocation} value={location} name="location" hasIcon icon="/map_pin.svg" readOnly />
+            <Dropdown id="locationInput" className="locationInput" name="location" setValue={setLocation} value={location} hasIcon icon="/map_pin.svg" readOnly />
             <Button className="change" text="Change" fullWidth onClick={() => router.push("/")} />
           </div>
         </Header>

@@ -87,7 +87,7 @@ const Content = styled.div`
     margin-bottom: 3.2rem;
 
     img {
-      width: 100%;
+      min-width: 100% !important;
     }
   }
 
@@ -171,7 +171,7 @@ const AddToCart = ({ content, setOrders }) => {
           </button>
         </div>
         <div className="imgWrapper">
-          <img src={content.photo || "/temp_meal.png"} alt="meal"  />
+          <Image src={content.photo || "/temp_meal.png"} alt="meal" height="266px" width="327px" />
         </div>
         <Quantity value={quantity} setValue={setQuantity} />
         <div className="actionBtns">

@@ -201,7 +201,7 @@ const FormGroup = ({
             ))}
           </select>
           {showLabel && <label htmlFor={name}>{placeholder}</label>}
-          <img src={chevronDown} alt="dropdown" className="dropdownIcon" />
+          <Image src={chevronDown} alt="dropdown" className="dropdownIcon" height="16px" width="16px" />
         </>
       )}
 
