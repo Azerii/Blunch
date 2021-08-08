@@ -11,7 +11,7 @@ import Layout from '../components/Layout';
 
 const Wrapper = styled.div`
   height: 100vh;
-  overflow-y: auto;
+  overflow: hidden;
 
   .text1 {
     font-size: 32px;
@@ -39,7 +39,8 @@ const Wrapper = styled.div`
 
   .contentLeft {
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import Image from "next/image";
+import Link from "next/link";
 import logo from "../public/logo.svg";
 
-const Wrapper = styled.div`
+const Wrapper = styled(Link)`
   display: flex;
   align-items: center;
   width: fit-content;
@@ -21,7 +22,7 @@ const Wrapper = styled.div`
 
 const Logo = ({ className }) => {
   return (
-    <Wrapper className={className}>
+    <Wrapper href="/" className={className}>
       <Image src={logo} alt="Blunch" className="logo" width="40px" height="48px" />
     </Wrapper>
   );

@@ -131,6 +131,7 @@ const Review = () => {
   const [orders, setOrders] = useState(false);
   const [deliveryInfo, setDeliveryInfo] = useState(false)
   const [location, setLocation] = useState(false);
+  const [userLocation, setUserLocation] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const makeOrder = async (e) => {
@@ -164,6 +165,7 @@ const Review = () => {
     cart && setOrders(JSON.parse(cart));
     delivery_info && setDeliveryInfo(JSON.parse(delivery_info));
     user_location && setLocation(JSON.parse(user_location).name);
+    user_location && setUserLocation(JSON.parse(user_location));
     // eslint-disable-next-line
   }, [])
 
@@ -193,7 +195,7 @@ const Review = () => {
               </div>
               <div className="small item">
                 <span>Delivery fee</span>
-                <span>NGN 400</span>
+                <span>NGN {userLocation.delivery_price}</span>
               </div>
             </div>
             <div className="sup total">
