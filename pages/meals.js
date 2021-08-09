@@ -9,6 +9,7 @@ import Dropdown from '../components/Dropdown'
 import Layout from '../components/Layout'
 import MealCard from '../components/MealCard'
 import PreCheckout from '../components/Cart'
+import Head from 'next/head'
 
 const Wrapper = styled(Container)`
   padding-bottom: 10.8rem;
@@ -118,6 +119,14 @@ const formatNumber = (num) => {
   return formatter.format(toNum);
 };
 
+const days = {
+  1: "monday",
+  2: "tuesday",
+  3: "wednesday",
+  4: "thursday",
+  5: "friday"
+}
+
 export default function Meals({ menu }) {
   const [location, setLocation] = useState("...");
   const [selectedMeal, setSelectedMeal] = useState(false);
@@ -137,6 +146,7 @@ export default function Meals({ menu }) {
 
   useEffect(() => {
     const user_location = localStorage.getItem("user_location");
+    let today = (new Date()).getDay();
     let cart;
 
     if (!localStorage.getItem("cart")) {
@@ -150,10 +160,17 @@ export default function Meals({ menu }) {
 
     user_location && setLocation(JSON.parse(user_location).name);
     menu && localStorage.setItem("menu", JSON.stringify(menu));
+
+    days[today] && document.querySelector(`#${days[today]}`).scrollIntoView();
     // eslint-disable-next-line
   }, [location]);
 
   return (
+    <>
+    <Head>
+      <title>Meals</title>
+      <meta name="description" content="Breakfast meals for lunch" />
+    </Head>
     <Layout>
       {!!orders.length && <CartPreview>
         <p>{orders.length} order{orders.length > 1 ? "s" : ""} - NGN {formatNumber(orders.reduce((a, b) => a + b.total, 0))}</p>
@@ -171,7 +188,7 @@ export default function Meals({ menu }) {
         <div className="content">
           <div className="listing">
             {menu && Object.keys(menu).map(day => (
-              <Section key={day}>
+              <Section key={day} id={day} >
               <div className="title">
                 <h3>{day}</h3>
               </div>
@@ -185,6 +202,7 @@ export default function Meals({ menu }) {
         </div>
       </Wrapper>
     </Layout>
+    </>
   )
 }
 

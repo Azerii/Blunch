@@ -100,6 +100,10 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: none;
   }
 
+  button {
+    font-family: var(--font1);
+  }
+
   /* Headings */
 
   h1 {

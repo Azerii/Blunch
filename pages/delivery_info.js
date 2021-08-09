@@ -1,4 +1,6 @@
 import { useRouter } from 'next/dist/client/router';
+import Head from 'next/head';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Button from '../components/Button';
 import Container from '../components/Container';
@@ -54,6 +56,7 @@ const formDataToJSON = (formData) => {
 
 const Delivery_info = () => {
   const router = useRouter();
+  const [deliveryInfo, setDeliveryInfo] = useState(false);
 
   const handleSubmit = (e) => {
     let formEl;
@@ -71,34 +74,50 @@ const Delivery_info = () => {
 
     router.push("/review");
   }
+
+  useEffect(()=> {
+    const delivery_info = localStorage.getItem("delivery_info");
+    delivery_info && setDeliveryInfo(JSON.parse(delivery_info));
+    // eslint-disable-next-line
+  }, []);
+
   return (
+    <>
+    <Head>
+      <title>Delivery info</title>
+      <meta name="description" content="Customer delivery information" />
+    </Head>
     <Layout>
       <Wrapper id="delivery_info">
-        <h2 className="heading">Delivery information</h2>
+        <h1 className="heading">Delivery information</h1>
         <form onSubmit={handleSubmit}>
           <FormGroup
             fieldStyle="shortText"
             inputType="text"
             name="name"
             placeholder="Full name"
+            defaultValue={deliveryInfo.name}
           />
           <FormGroup
             fieldStyle="shortText"
             inputType="number"
             name="phone"
             placeholder="Phone number"
+            defaultValue={deliveryInfo.phone}
           />
           <FormGroup
             fieldStyle="shortText"
             inputType="email"
             name="email"
             placeholder="Email address"
+            defaultValue={deliveryInfo.email}
           />
           <FormGroup
             fieldStyle="shortText"
             inputType="text"
             name="delivery_address"
             placeholder="Delivery address"
+            defaultValue={deliveryInfo.delivery_address}
           />
           <FormGroup
             fieldStyle="longText"
@@ -106,6 +125,7 @@ const Delivery_info = () => {
             name="instructions"
             placeholder="Instructions (Optional)"
             required={false}
+            defaultValue={deliveryInfo.instructions}
           />
           <Button
             type="submit"
@@ -116,6 +136,7 @@ const Delivery_info = () => {
         </form>
       </Wrapper>
     </Layout>
+  </>
   )
 }
 

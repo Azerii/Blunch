@@ -5,6 +5,16 @@ import close from '../public/close.svg';
 import Button from './Button';
 import Quantity from './Quantity';
 import { useState } from 'react';
+import chicken_waffles from "../public/menu/4 Chicken Waffles + 2 Sausages + Syrup.jpg";
+import plain_waffles from "../public/menu/4 Plain Waffles + 2 Sausages + Syrup.jpg";
+import pancakes_sausages_syrup from "../public/menu/6 Pancakes + 2 Sausages + Syrup.jpg";
+import chicken_sandwich from "../public/menu/Chicken Sandwich.jpg";
+import chicken_stirfry from "../public/menu/Chicken Stir Fry Noodles.jpg";
+import egg_mayo_sandwich from "../public/menu/Egg & Mayo Sandwich.jpg";
+import sardine_sandwich from "../public/menu/Sardine Sandwich.jpg";
+import suya_stirfry_extra_suya from "../public/menu/Suya Stir Fry Noodles +Extra Suya.jpg";
+import suya_stirfry from "../public/menu/Suya Stir Fry Noodles.jpg";
+import zobo from "../public/menu/Zobo.jpg";
 
 const Wrapper = styled.div`
   position: fixed;
@@ -130,6 +140,19 @@ const Content = styled.div`
   }
 `
 
+const photos = {
+  "4 Chicken Waffles + 2 Sausages + Syrup": chicken_waffles,
+  "4 Plain Waffles + 2 Sausages + Syrup": plain_waffles,
+  "6 Pancakes + 2 Sausages + Syrup": pancakes_sausages_syrup,
+  "Chicken Sandwich": chicken_sandwich,
+  "Chicken Stir Fry Noodles": chicken_stirfry,
+  "Egg & Mayo Sandwich": egg_mayo_sandwich,
+  "Sardine Sandwich": sardine_sandwich,
+  "Suya Stir Fry Noodles +Extra Suya": suya_stirfry_extra_suya,
+  "Suya Stir Fry Noodles": suya_stirfry,
+  "Zobo": zobo,
+}
+
 const AddToCart = ({ content, setOrders }) => {
   const [quantity, setQuantity] = useState(1);
 
@@ -176,7 +199,7 @@ const AddToCart = ({ content, setOrders }) => {
           </button>
         </div>
         <div className="imgWrapper">
-          <Image src={`/menu/${content.name}.jpg`} alt={content.name} height={266} width={327} loading="eager" />
+          <Image src={photos[content.name]} alt={content.name} height={266} width={327} loading="eager" priority />
         </div>
         <Quantity value={quantity} setValue={setQuantity} />
         <div className="actionBtns">

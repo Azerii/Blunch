@@ -1,4 +1,5 @@
 import { useRouter } from 'next/dist/client/router';
+import Head from 'next/head';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -71,6 +72,11 @@ const Order_successful = () => {
   }, [])
 
   return (
+    <>
+    <Head>
+      <title>Order successful</title>
+      <meta name="description" content="Order successful" />
+    </Head>
     <Layout>
       {render && <Wrapper>
         <div className="imgWrapper">
@@ -82,6 +88,7 @@ const Order_successful = () => {
         </div>
       </Wrapper>}
     </Layout>
+    </>
   )
 }
 

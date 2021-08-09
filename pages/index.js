@@ -135,32 +135,30 @@ export default function Home({locations}) {
   }
   return (
     <>
-      <Head>
-        <title>Blunch</title>
-        <meta name="description" content="Breakfast at your doorstep" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <Layout>
-        <Wrapper>
-          <AlertBox className="alertBox" success={success} text={alertText} />
-          <div className="contentLeft">
-            <h1 className="text1">Welcome to</h1>
-            <h1 className="text2">Blunch.ng</h1>
-            <h5 className="text3">Breakfast at your doorstep</h5>
-            <form onSubmit={handleSubmit}>
-              <Dropdown id="locationInput" name="location" className="dropdown" list={locations} value={location} setValue={setLocation} />
-              <Button text="View meals" fullWidth />
-            </form>
+    <Head>
+      <title>Blunch.ng</title>
+      <meta name="description" content="Breakfast at your doorstep" />
+    </Head>
+    <Layout>
+      <Wrapper>
+        <AlertBox className="alertBox" success={success} text={alertText} />
+        <div className="contentLeft">
+          <h1 className="text1">Welcome to</h1>
+          <h1 className="text2">Blunch.ng</h1>
+          <h5 className="text3">Breakfast at your doorstep</h5>
+          <form onSubmit={handleSubmit}>
+            <Dropdown id="locationInput" name="location" className="dropdown" list={locations} value={location} setValue={setLocation} />
+            <Button text="View meals" fullWidth />
+          </form>
+        </div>
+        <div className="contentRight">
+          <div className="bg"></div>
+          <div className="meal">
+            <Image src="/indexMeal.svg" alt="Indomie and Suya Stir fry" height="480px" width="452px" />
           </div>
-          <div className="contentRight">
-            <div className="bg"></div>
-            <div className="meal">
-              <Image src="/indexMeal.svg" alt="Indomie and Suya Stir fry" height="480px" width="452px" />
-            </div>
-          </div>
-        </Wrapper>
-      </Layout>
+        </div>
+      </Wrapper>
+    </Layout>
     </>
   )
 }

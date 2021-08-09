@@ -12,6 +12,7 @@ const Wrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   max-width: 12rem;
+  height: max-content;
 
   .row {
     display: flex;
@@ -29,9 +30,9 @@ const Wrapper = styled.div`
 
   button {
     padding: 0.25rem;
-    width: 2.4rem;
+    width: 3.2rem;
     aspect-ratio: 1/1;
-    border: 1px solid ${props => props.light ? "var(--white)" : "var(--primary)"};
+    border: 2px solid ${props => props.light ? "var(--white)" : "var(--primary)"};
     border-radius: 50%;
     display: flex;
     justify-content: center;

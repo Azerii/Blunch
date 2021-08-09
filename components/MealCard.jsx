@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import Image from 'next/image';
 import styled from 'styled-components';
 import Button from './Button';
+import { useEffect, useState } from 'react';
 
 const Wrapper = styled.div`
   display: grid;
@@ -75,8 +76,28 @@ const formatNumber = (num) => {
   return formatter.format(toNum);
 };
 
+// const days = {
+//   "monday": 1,
+//   "tuesday": 2,
+//   "wednesday": 3,
+//   "thursday": 4,
+//   "friday": 5,
+// }
+
 const MealCard = (props) => {
-  const { photo, name, price, day, id, handleMealSelect } = props;
+  const { name, price, day, handleMealSelect } = props;
+  const [canAdd, setCanAdd] = useState(true);
+
+  const canAddToCart = (id, day) => {
+    const _date = new Date();
+    const _day = _date.getDay();
+    const _hours = _date.getHours();
+    const cart = JSON.parse(localStorage.getItem("cart"));
+    const isInCart = cart.some(item => item.id === id && item.day === day);
+    const isPastTime = _hours >= 14 && day <= _day;
+  
+    return !isInCart && !isPastTime;
+  }
 
   const handleClick = (e) => {
     e.stopPropagation();
@@ -92,6 +113,12 @@ const MealCard = (props) => {
 
     handleMealSelect && handleMealSelect();
   }
+
+  useEffect(() => {
+    setCanAdd(canAddToCart(props.id, props.pivot.day_id));
+    // eslint-disable-next-line
+  }, [])
+
   return (
     <Wrapper>
       <div className="imgWrapper">
@@ -100,7 +127,7 @@ const MealCard = (props) => {
       <div className="content">
         <h4 className="mealName">{name}</h4>
         <p className="sup mealPrice">NGN {formatNumber(price)}</p>
-        <Button className="btn sup" text="Add to cart" onClick={handleClick} />
+        <Button className="btn sup" text="Add to cart" onClick={handleClick} disabled={!canAdd} />
       </div>
     </Wrapper>
   )

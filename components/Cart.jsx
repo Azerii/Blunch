@@ -137,6 +137,24 @@ const Content = styled.div`
   }
 `
 
+const NoItems = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: #8D909150;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+
+  p {
+    text-align: center;
+    color: var(--white);
+  }
+`
+
 const formatNumber = (num) => {
   const formatter = new Intl.NumberFormat()
   const toNum = Number(num);
@@ -186,14 +204,15 @@ const Cart = ({lg, orders, setOrders}) => {
     return (
       <Content lg>
         <AlertBox className="alertBox" success={success} text={alertText} />
+        {!orders.length && <NoItems><p>You have no items in your cart</p></NoItems>}
         <div className="inner">
           {orders.map((order, index) => (
             <Order key={`${index}${order.id}`} index={index} _quantity={order.quantity} name={order.name} total={order.total} handleRemove={handleRemove} orders={orders} setOrders={setOrders} light />
           ))}
-          <div className="subTotal">
+          {!!orders.length && <div className="subTotal">
             <span className="sup">Sub-total ({orders.length} order{orders.length > 1 ? "s" : ""})</span>
             <span className="sup">NGN {formatNumber(orders.reduce((a, b) => a + b.total, 0))}</span>
-          </div>
+          </div>}
         </div>
         <div className="actionBtns">
           <Button className="btn" text="Checkout" fullWidth onClick={handleCheckout} />

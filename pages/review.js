@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useRouter } from 'next/dist/client/router';
+import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import AlertBox from '../components/AlertBox';
@@ -62,6 +63,7 @@ const Wrapper = styled(Container)`
       display: flex;
       align-items: center;
       justify-content: space-between;
+      color: var(--sup_text);
     }
   }
 
@@ -70,6 +72,7 @@ const Wrapper = styled(Container)`
     align-items: center;
     justify-content: space-between;
     margin-top: 1.6rem;
+    font-weight: 700;
   }
 
   .actionBtns {
@@ -78,6 +81,10 @@ const Wrapper = styled(Container)`
     grid-template-columns: 1fr;
     grid-gap: 1.6rem;
     margin-top: 3.2rem;
+  }
+
+  .disclaimer {
+    margin-top: 4.8rem;
   }
 
   .lg {
@@ -92,13 +99,13 @@ const Wrapper = styled(Container)`
     .content {
       width: 90%;
       margin: auto;
-      grid-template-columns: 2fr 1fr;
-      grid-gap: 10.8rem;
+      grid-template-columns: 3fr 2fr;
+      grid-gap: 14.4rem;
     }
 
     .order {
       grid-template-columns: 1fr 3fr 2fr;
-      padding: 2.4rem 4.8rem;
+      padding-block: 2.4rem;
       border-bottom: none;
     }
 
@@ -187,10 +194,15 @@ const Review = () => {
   }, [])
 
   return (
+    <>
+    <Head>
+      <title>Review order</title>
+      <meta name="description" content="Review order details" />
+    </Head>
     <Layout>
       <Wrapper id="review">
         <AlertBox className="alertBox" success={success} text={alertText} />
-        <h2 className="heading">Review orders</h2>
+        <h1 className="heading">Review orders</h1>
         {orders && deliveryInfo && <div className="content">
           <div className="cart">
             {orders.map((order, index) => (
@@ -207,18 +219,21 @@ const Review = () => {
               </div>
             ))}
             <div className="summation">
-              <div className="small item">
+              <div className="sup item">
                 <span>Sub-total ({orders.length} order{orders.length > 1 ? "s" : ""})</span>
                 <span>NGN {formatNumber(orders.reduce((a, b) => a + b.total, 0))}</span>
               </div>
-              <div className="small item">
+              <div className="sup item">
                 <span>Delivery fee</span>
                 <span>NGN {userLocation.delivery_price}</span>
               </div>
             </div>
-            <div className="sup total">
+            {!!orders.length && <h5 className="total">
               <span>Total</span>
-              <span>NGN {formatNumber(orders.reduce((a, b) => a + b.total, 400))}</span>
+              <span>NGN {formatNumber(orders.reduce((a, b) => a + b.total, userLocation.delivery_price))}</span>
+            </h5>}
+            <div className="disclaimer">
+              <p>Note:<br />Pre-orders will be delivered between 9am - 11am. Same day orders will be delivered between 2 - 3 hours from when you place your order.</p>
             </div>
           </div>
           <div className="info">
@@ -242,6 +257,7 @@ const Review = () => {
           </div>
       </Wrapper>
     </Layout>
+    </>
   )
 }
 
