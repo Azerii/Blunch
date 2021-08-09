@@ -22,7 +22,7 @@ const Wrapper = styled.div`
 
   .content {
     bottom: -100%;
-    transition: all .2s ease-out .1s;
+    transition: all .2s ease-out;
   }
 
   &.open {
@@ -87,7 +87,12 @@ const Content = styled.div`
     margin-bottom: 3.2rem;
 
     img {
-      min-width: 100% !important;
+      max-width: unset !important;
+      min-width: unset !important;
+      height: unset !important;
+      width: unset !important;
+      left: 50% !important;
+      transform: translateX(-50%);
     }
   }
 
@@ -158,7 +163,7 @@ const AddToCart = ({ content, setOrders }) => {
     localStorage.setItem("cart", JSON.stringify(cart));
 
     document.querySelector("#addToCart").classList.remove("open");
-    document.querySelector("#cart").classList.add("open");
+    // document.querySelector("#cart").classList.add("open");
   };
 
   return (
@@ -171,7 +176,7 @@ const AddToCart = ({ content, setOrders }) => {
           </button>
         </div>
         <div className="imgWrapper">
-          <Image src={content.photo || "/temp_meal.png"} alt="meal" height="266px" width="327px" />
+          <Image src={`/menu/${content.name}.jpg`} alt={content.name} height={266} width={327} loading="eager" />
         </div>
         <Quantity value={quantity} setValue={setQuantity} />
         <div className="actionBtns">

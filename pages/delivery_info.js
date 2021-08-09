@@ -109,7 +109,7 @@ const Delivery_info = () => {
           />
           <Button
             type="submit"
-            text="next"
+            text="Next"
             fullWidth
             className="btn"
           />

@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import Image from "next/image";
-import Link from "next/link";
 import logo from "../public/logo.svg";
 
-const Wrapper = styled(Link)`
+const Wrapper = styled.a`
   display: flex;
   align-items: center;
   width: fit-content;
+  cursor: pointer;
 
   .logo {
     min-height: 3.2rem !important;

@@ -11,6 +11,7 @@ import MealCard from '../components/MealCard'
 import PreCheckout from '../components/Cart'
 
 const Wrapper = styled(Container)`
+  padding-bottom: 10.8rem;
 
   >.content {
     width: 100%;
@@ -19,18 +20,20 @@ const Wrapper = styled(Container)`
     grid-template-columns: 1fr;
     overflow-y: auto;
 
-    #preCheckout {
+    #cart {
       display: none;
     }
   }
 
   @media screen and (min-width: 768px) {
-    
+    padding-bottom: unset;
+
     >.content {
       grid-template-columns: 2fr 1fr;
       grid-gap: 3.2rem;
+      padding-bottom: unset;
 
-      #preCheckout {
+      #cart {
         display: block;
       }
     }
@@ -83,6 +86,38 @@ const Section = styled.div`
   }
 `
 
+const CartPreview = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 7.2rem;
+  width: 100vw;
+  background-color: var(--text);
+  padding: 0 1.6rem;
+  border-radius: 2rem;
+  position: fixed;
+  bottom: 0;
+  color: var(--white);
+
+  .btn {
+    background-color: var(--white);
+    color: var(--text);
+    width: 10.8rem;
+    font-weight: 400;
+  }
+
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
+`
+
+const formatNumber = (num) => {
+  const formatter = new Intl.NumberFormat()
+  const toNum = Number(num);
+
+  return formatter.format(toNum);
+};
+
 export default function Meals({ menu }) {
   const [location, setLocation] = useState("...");
   const [selectedMeal, setSelectedMeal] = useState(false);
@@ -120,6 +155,10 @@ export default function Meals({ menu }) {
 
   return (
     <Layout>
+      {!!orders.length && <CartPreview>
+        <p>{orders.length} order{orders.length > 1 ? "s" : ""} - NGN {formatNumber(orders.reduce((a, b) => a + b.total, 0))}</p>
+        <Button className="btn" text="View cart" onClick={() => document.querySelector("#cart").classList.add("open")} />
+      </CartPreview>}
       <AddToCart content={selectedMeal} setOrders={setOrders} />
       <PreCheckout orders={orders} setOrders={setOrders} />
       <Wrapper>

@@ -1,4 +1,6 @@
+import { useRouter } from 'next/dist/client/router';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Container from '../components/Container';
 import Layout from '../components/Layout';
@@ -42,10 +44,35 @@ const Wrapper = styled(Container)`
   }
 `
 
+function parseQuery(queryString) {
+  var query = {};
+  var pairs = (queryString[0] === '?' ? queryString.substr(1) : queryString).split('&');
+  for (var i = 0; i < pairs.length; i++) {
+      var pair = pairs[i].split('=');
+      query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
+  }
+  return query;
+}
+
 const Order_successful = () => {
+  const [render, setRender] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    const { status } = parseQuery(window.location.search);
+    if (status !== "success") {
+      router.push("/review");
+    } else {
+      localStorage.removeItem("cart");
+      localStorage.removeItem("delivery_info");
+      setRender(true);
+    }
+    // esling-disable-next-line
+  }, [])
+
   return (
     <Layout>
-      <Wrapper>
+      {render && <Wrapper>
         <div className="imgWrapper">
           <Image src="/order_success.svg" height="240px" width="240px" alt="Shopping bag" />
         </div>
@@ -53,7 +80,7 @@ const Order_successful = () => {
           <h1 className="prompt">Order successful!</h1>
           <p>Your order has been received and will be<br />delivered on expected date of delivery.</p>
         </div>
-      </Wrapper>
+      </Wrapper>}
     </Layout>
   )
 }

@@ -14,15 +14,24 @@ const Wrapper = styled.div`
   .imgWrapper {
     width: 100%;
     height: 9.6rem;
-    dispay: flex;
+    display: flex;
     justify-content: center;
     align-items: center;
-    oveflow: hidden;
+    overflow: hidden;
     border-radius: 0.5rem;
+
+    img {
+      max-width: unset !important;
+      min-width: unset !important;
+      height: unset !important;
+      width: unset !important;
+      left: 50% !important;
+      transform: translateX(-50%);
+    }
   }
 
   .mealName {
-    max-width: 70%;
+    margin-bottom: 0.8rem;
   }
 
   .mealPrice {
@@ -54,7 +63,7 @@ const Wrapper = styled.div`
 
     .btn {
       height: 4.8rem;
-      width: 20rem;
+      width: 14.4rem;
     }
   }
 `
@@ -86,7 +95,7 @@ const MealCard = (props) => {
   return (
     <Wrapper>
       <div className="imgWrapper">
-        {photo && <Image src={photo || "/temp_meal.png"} alt={name} height="100px" width="100px" />}
+        <Image src={`/menu/${name}.jpg`} alt={name} width={100} height={100} priority />
       </div>
       <div className="content">
         <h4 className="mealName">{name}</h4>

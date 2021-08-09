@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const DropdownWrapper = styled.div`
@@ -22,6 +21,7 @@ const DropdownWrapper = styled.div`
     justify-content: space-between;
     color: var(--sup_text);
     cursor: pointer;
+    background-color: var(--white);
   }
 
   .toggleIcon {

@@ -106,6 +106,7 @@ const Content = styled.div`
     .inner {
       height: -webkit-fill-available;
       overflow-y: auto;
+      padding-bottom: 10.8rem;
     }
 
     .subTotal {

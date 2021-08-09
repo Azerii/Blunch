@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useRouter } from 'next/dist/client/router';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import AlertBox from '../components/AlertBox';
 import Button from '../components/Button';
 import Container from '../components/Container';
 import FormGroup from '../components/FormGroup';
@@ -128,32 +129,48 @@ const formatNumber = (num) => {
 
 const Review = () => {
   const router = useRouter();
+  const [alertText, setAlertText] = useState("");
+  const [success, setSuccess] = useState(false);
   const [orders, setOrders] = useState(false);
   const [deliveryInfo, setDeliveryInfo] = useState(false)
   const [location, setLocation] = useState(false);
   const [userLocation, setUserLocation] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const showAlert = (msg = "...", _success = false) => {
+    // e.preventDefault();
+    setSuccess(_success);
+    setAlertText(msg);
+
+    document.querySelector(".alertBox").classList.add("show");
+    setTimeout(
+      () => document.querySelector(".alertBox").classList.remove("show"),
+      3000
+    );
+  };
+
   const makeOrder = async (e) => {
-    const url = 'https://order.blunch.ng/api/order'
+    const url = 'https://order.blunch.ng/api'
     const meals = orders.map(order => ({
       id: order.id,
       quantity: order.quantity,
       day_id: order.pivot.day_id,
       date: (new Date()).toLocaleDateString()
     }));
-    const user_location = localStorage.getItem("user_location");
+    const user_location = JSON.parse(localStorage.getItem("user_location"));
 
     const location_id = user_location?.id;
 
     setLoading(true);
 
-    const res = await axios.post(`${url}?name=${deliveryInfo.name}&phone=${deliveryInfo.phone}&location_id=${location_id}&email=${deliveryInfo.email}&address=${deliveryInfo.delivery_address}`, {meals})
+    const res = await axios.post(`${url}/order?name=${deliveryInfo.name}&phone=${deliveryInfo.phone}&location_id=${Number(location_id)}&email=${deliveryInfo.email}&address=${deliveryInfo.delivery_address}`, {meals})
 
     setLoading (false);
 
-    if (res.data.status === "success") {
-
+    if (res?.data?.status === "success") {
+      router.push(`${url}/paynow?order_id=${res.data?.order_id}`);
+    } else {
+      showAlert("An error occurred", false);
     }
   }
 
@@ -172,6 +189,7 @@ const Review = () => {
   return (
     <Layout>
       <Wrapper id="review">
+        <AlertBox className="alertBox" success={success} text={alertText} />
         <h2 className="heading">Review orders</h2>
         {orders && deliveryInfo && <div className="content">
           <div className="cart">
