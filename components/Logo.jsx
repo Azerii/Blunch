@@ -23,7 +23,7 @@ const Wrapper = styled.a`
 const Logo = ({ className }) => {
   return (
     <Wrapper href="/" className={className}>
-      <Image src={logo} alt="Blunch" className="logo" width="40px" height="48px" />
+      <Image src={logo} alt="Blunch" className="logo" width={40} height={48} unoptimized priority />
     </Wrapper>
   );
 };

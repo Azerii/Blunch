@@ -68,7 +68,7 @@ const Order_successful = () => {
       localStorage.removeItem("delivery_info");
       setRender(true);
     }
-    // esling-disable-next-line
+    // eslint-disable-next-line
   }, [])
 
   return (
@@ -80,7 +80,7 @@ const Order_successful = () => {
     <Layout>
       {render && <Wrapper>
         <div className="imgWrapper">
-          <Image src="/order_success.svg" height="240px" width="240px" alt="Shopping bag" />
+          <Image src="/order_success.svg" height="240px" width="240px" alt="Shopping bag" unoptimized />
         </div>
         <div className="textWrapper">
           <h1 className="prompt">Order successful!</h1>

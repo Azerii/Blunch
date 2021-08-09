@@ -227,7 +227,7 @@ const Cart = ({lg, orders, setOrders}) => {
       {orders && <Content className="content">
         <div className="header">
           <button className="closeBtn" onClick={handleClose}>
-            <Image src={close} alt="close" />
+            <Image src={close} alt="close" unoptimized priority />
           </button>
         </div>
         <div className="inner">

@@ -195,11 +195,11 @@ const AddToCart = ({ content, setOrders }) => {
         <div className="header">
           <h4>{content.name}</h4>
           <button className="closeBtn" onClick={handleClose}>
-            <Image src={close} alt="close" />
+            <Image src={close} alt="close" unoptimized priority />
           </button>
         </div>
         <div className="imgWrapper">
-          <Image src={photos[content.name]} alt={content.name} height={266} width={327} loading="eager" priority />
+          <Image src={photos[content.name]} alt={content.name} height={266} width={327} loading="eager" unoptimized priority />
         </div>
         <Quantity value={quantity} setValue={setQuantity} />
         <div className="actionBtns">

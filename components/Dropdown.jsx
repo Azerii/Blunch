@@ -93,9 +93,9 @@ const Dropdown = ({className, name, value, setValue, list, hasIcon, icon, id, re
     <DropdownWrapper id={id} className={`dWrapper${hasIcon ? " hasIcon" : ""} ${className ?? ""}`}>
       <div className="header" onClick={toggleList}>
         <input type="text" name={name} value={value} readOnly className="locationInput" />
-        {hasIcon && icon && <Image src={icon} alt="icon" className="iconLeft" height="16" width="16" />}
+        {hasIcon && icon && <Image src={icon} alt="icon" className="iconLeft" height={16} width={16} unoptimized />}
         <p className="sup title">{value}</p>
-        {!hasIcon && <Image src="/chevron_down.svg" height="16" width="16" alt="down" className="toggleIcon" />}
+        {!hasIcon && <Image src="/chevron_down.svg" height={16} width={16} alt="down" className="toggleIcon" unoptimized />}
       </div>
       <div className="list">
         {!!list?.length && list.map(item => <button key={item.id} className="listItem"onClick={(e) => handleSelect(e, item.name)}>{item.name}</button>)}

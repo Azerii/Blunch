@@ -122,7 +122,7 @@ const MealCard = (props) => {
   return (
     <Wrapper>
       <div className="imgWrapper">
-        <Image src={`/menu/${name}.jpg`} alt={name} width={100} height={100} priority />
+        <Image src={`/menu/${name}.jpg`} alt={name} width={100} height={100} unoptimized priority />
       </div>
       <div className="content">
         <h4 className="mealName">{name}</h4>

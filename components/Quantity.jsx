@@ -79,8 +79,8 @@ const Quantity = ({light, value = 1, setValue}) => {
         onClick={() => decrement()}
         disabled={value <= 1}
       >
-        {!light && <Image src={minusPrimary} alt="minus" className="icon" />}
-        {light && <Image src={minusLight} alt="minus" className="icon" />}
+        {!light && <Image src={minusPrimary} alt="minus" className="icon" unoptimized priority />}
+        {light && <Image src={minusLight} alt="minus" className="icon" unoptimized priority />}
       </button>
       <input
         id="quantity"
@@ -93,8 +93,8 @@ const Quantity = ({light, value = 1, setValue}) => {
         className="row"
         onClick={() => increment()}
       >
-        {!light && <Image src={plusPrimary} alt="plus" className="icon" />}
-        {light && <Image src={plusLight} alt="plus" className="icon" />}
+        {!light && <Image src={plusPrimary} alt="plus" className="icon" unoptimized priority />}
+        {light && <Image src={plusLight} alt="plus" className="icon" unoptimized priority />}
       </button>
     </Wrapper>
   )

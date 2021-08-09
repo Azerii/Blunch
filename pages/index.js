@@ -154,7 +154,7 @@ export default function Home({locations}) {
         <div className="contentRight">
           <div className="bg"></div>
           <div className="meal">
-            <Image src="/indexMeal.svg" alt="Indomie and Suya Stir fry" height="480px" width="452px" />
+            <Image src="/indexMeal.svg" alt="Indomie and Suya Stir fry" height="480px" width="452px" unoptimized />
           </div>
         </div>
       </Wrapper>

@@ -201,11 +201,9 @@ const FormGroup = ({
             ))}
           </select>
           {showLabel && <label htmlFor={name}>{placeholder}</label>}
-          <Image src={chevronDown} alt="dropdown" className="dropdownIcon" height="16px" width="16px" />
+          <Image src={chevronDown} alt="dropdown" className="dropdownIcon" height={16} width={16} unoptimized priority />
         </>
       )}
-
-      {/* {fieldStyle === "dropdown" && <Dropdown defaultValue={defaultValue} hasIcon={hasIcon} icon={icon} id={name} />} */}
     </Wrapper>
   );
 };

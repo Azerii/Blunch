@@ -212,15 +212,6 @@ export async function getStaticProps() {
 
   if (menu) delete menu.status;
 
-  if (!menu) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    }
-  }
-
   return {
     props: {
       menu
