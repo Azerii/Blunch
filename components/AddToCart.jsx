@@ -5,16 +5,16 @@ import close from '../public/close.svg';
 import Button from './Button';
 import Quantity from './Quantity';
 import { useState } from 'react';
-import chicken_waffles from "../public/menu/4 Chicken Waffles + 2 Sausages + Syrup.jpg";
-import plain_waffles from "../public/menu/4 Plain Waffles + 2 Sausages + Syrup.jpg";
-import pancakes_sausages_syrup from "../public/menu/6 Pancakes + 2 Sausages + Syrup.jpg";
-import chicken_sandwich from "../public/menu/Chicken Sandwich.jpg";
-import chicken_stirfry from "../public/menu/Chicken Stir Fry Noodles.jpg";
-import egg_mayo_sandwich from "../public/menu/Egg & Mayo Sandwich.jpg";
-import sardine_sandwich from "../public/menu/Sardine Sandwich.jpg";
-import suya_stirfry_extra_suya from "../public/menu/Suya Stir Fry Noodles +Extra Suya.jpg";
-import suya_stirfry from "../public/menu/Suya Stir Fry Noodles.jpg";
-import zobo from "../public/menu/Zobo.jpg";
+import chicken_waffles from "../public/4 Chicken Waffles + 2 Sausages + Syrup.jpg";
+import plain_waffles from "../public/4 Plain Waffles + 2 Sausages + Syrup.jpg";
+import pancakes_sausages_syrup from "../public/6 Pancakes + 2 Sausages + Syrup.jpg";
+import chicken_sandwich from "../public/Chicken Sandwich.jpg";
+import chicken_stirfry from "../public/Chicken Stir Fry Noodles.jpg";
+import egg_mayo_sandwich from "../public/Egg & Mayo Sandwich.jpg";
+import sardine_sandwich from "../public/Sardine Sandwich.jpg";
+import suya_stirfry_extra_suya from "../public/Suya Stir Fry Noodles +Extra Suya.jpg";
+import suya_stirfry from "../public/Suya Stir Fry Noodles.jpg";
+import zobo from "../public/Zobo.jpg";
 
 const Wrapper = styled.div`
   position: fixed;

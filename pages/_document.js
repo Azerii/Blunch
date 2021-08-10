@@ -33,52 +33,52 @@ export default class MyDocument extends Document {
           <link 
             rel="preload"
             as="image"
-            href="/menu/4 Chicken Waffles + 2 Sausages + Syrup.jpg"
+            href="/4 Chicken Waffles + 2 Sausages + Syrup.jpg"
           />
           <link 
             rel="preload"
             as="image"
-            href="/menu/4 Plain Waffles + 2 Sausages + Syrup.jpg"
+            href="/4 Plain Waffles + 2 Sausages + Syrup.jpg"
           />
           <link 
             rel="preload"
             as="image"
-            href="/menu/6 Pancakes + 2 Sausages + Syrup.jpg"
+            href="/6 Pancakes + 2 Sausages + Syrup.jpg"
           />
           <link 
             rel="preload"
             as="image"
-            href="/menu/Chicken Sandwich.jpg"
+            href="/Chicken Sandwich.jpg"
           />
           <link 
             rel="preload"
             as="image"
-            href="/menu/Chicken Stir Fry Noodles.jpg"
+            href="/Chicken Stir Fry Noodles.jpg"
           />
           <link 
             rel="preload"
             as="image"
-            href="/menu/Egg &amp; Mayo Sandwich.jpg"
+            href="/Egg &amp; Mayo Sandwich.jpg"
           />
           <link 
             rel="preload"
             as="image"
-            href="/menu/Sardine Sandwich.jpg"
+            href="/Sardine Sandwich.jpg"
           />
           <link 
             rel="preload"
             as="image"
-            href="/menu/Suya Stir Fry Noodles +Extra Suya.jpg"
+            href="/Suya Stir Fry Noodles +Extra Suya.jpg"
           />
           <link 
             rel="preload"
             as="image"
-            href="/menu/Suya Stir Fry Noodles.jpg"
+            href="/Suya Stir Fry Noodles.jpg"
           />
           <link 
             rel="preload"
             as="image"
-            href="/menu/Zobo.jpg"
+            href="/Zobo.jpg"
           />
           {/* Step 5: Output the styles in the head  */}
           {this.props.styleTags}
