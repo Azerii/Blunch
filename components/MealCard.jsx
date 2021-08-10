@@ -93,7 +93,7 @@ const MealCard = (props) => {
     const _day = _date.getDay();
     const _hours = _date.getHours();
     const cart = JSON.parse(localStorage.getItem("cart"));
-    const isInCart = cart.some(item => item.id === id && item.pivot.day_id === day);
+    const isInCart = cart && cart.some(item => item.id === id && item.pivot.day_id === day);
     const isValidDay = day >= _day;
     const isPastTime = day === day && _hours >= 14
     
