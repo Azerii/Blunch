@@ -86,6 +86,7 @@ const Content = styled.div`
   }
 
   @media screen and (min-width: 768px) {
+    height: 70vh;
     padding-bottom: 0;
     border-radius: 1rem;
     position: sticky;
