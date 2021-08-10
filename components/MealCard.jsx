@@ -3,6 +3,16 @@ import Image from 'next/image';
 import styled from 'styled-components';
 import Button from './Button';
 import { useEffect, useState } from 'react';
+import chicken_waffles from "../public/menu/4 Chicken Waffles + 2 Sausages + Syrup.jpg";
+import plain_waffles from "../public/menu/4 Plain Waffles + 2 Sausages + Syrup.jpg";
+import pancakes_sausages_syrup from "../public/menu/6 Pancakes + 2 Sausages + Syrup.jpg";
+import chicken_sandwich from "../public/menu/Chicken Sandwich.jpg";
+import chicken_stirfry from "../public/menu/Chicken Stir Fry Noodles.jpg";
+import egg_mayo_sandwich from "../public/menu/Egg & Mayo Sandwich.jpg";
+import sardine_sandwich from "../public/menu/Sardine Sandwich.jpg";
+import suya_stirfry_extra_suya from "../public/menu/Suya Stir Fry Noodles +Extra Suya.jpg";
+import suya_stirfry from "../public/menu/Suya Stir Fry Noodles.jpg";
+import zobo from "../public/menu/Zobo.jpg";
 
 const Wrapper = styled.div`
   display: grid;
@@ -76,13 +86,18 @@ const formatNumber = (num) => {
   return formatter.format(toNum);
 };
 
-// const days = {
-//   "monday": 1,
-//   "tuesday": 2,
-//   "wednesday": 3,
-//   "thursday": 4,
-//   "friday": 5,
-// }
+const photos = {
+  "4 Chicken Waffles + 2 Sausages + Syrup": chicken_waffles,
+  "4 Plain Waffles + 2 Sausages + Syrup": plain_waffles,
+  "6 Pancakes + 2 Sausages + Syrup": pancakes_sausages_syrup,
+  "Chicken Sandwich": chicken_sandwich,
+  "Chicken Stir Fry Noodles": chicken_stirfry,
+  "Egg & Mayo Sandwich": egg_mayo_sandwich,
+  "Sardine Sandwich": sardine_sandwich,
+  "Suya Stir Fry Noodles +Extra Suya": suya_stirfry_extra_suya,
+  "Suya Stir Fry Noodles": suya_stirfry,
+  "Zobo": zobo,
+}
 
 const MealCard = (props) => {
   const { name, price, day, handleMealSelect } = props;
@@ -122,7 +137,7 @@ const MealCard = (props) => {
   return (
     <Wrapper>
       <div className="imgWrapper">
-        <Image src={`/menu/${name}.jpg`} alt={name} width={100} height={100} unoptimized priority />
+        <Image src={photos[name]} alt={name} width={100} height={100} loading="eager" unoptimized priority />
       </div>
       <div className="content">
         <h4 className="mealName fontBold">{name}</h4>
