@@ -100,13 +100,13 @@ const CartPreview = styled.div`
   border-radius: 2rem 2rem 0 0;
   position: fixed;
   bottom: 0;
+  z-index: 2;
   color: var(--white);
 
   .btn {
     background-color: var(--white);
     color: var(--text);
     width: 10.8rem;
-    font-weight: 400;
   }
 
   @media screen and (min-width: 768px) {
