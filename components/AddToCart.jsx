@@ -192,7 +192,7 @@ const AddToCart = ({ content, setOrders }) => {
   };
 
   return (
-    <Wrapper id="addToCart">
+    <Wrapper id="addToCart" onClick={(e) => e.target.id === "addToCart" && handleClose(e)}>
       {content && <Content className="content">
         <div className="header">
           <h4>{content.name}</h4>

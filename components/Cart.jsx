@@ -222,10 +222,10 @@ const Cart = ({lg, orders, setOrders}) => {
   }
 
   return (
-    <Wrapper id="cart">
+    <Wrapper id="cart" onClick={(e) => e.target.id === "cart" && handleClose(e)}>
       <AlertBox className="alertBox" success={success} text={alertText} />
       {orders && <Content className="content">
-        {!orders.length && <NoItems><p>You have no items in your cart</p></NoItems>}
+        {!orders.length && <NoItems onClick={handleClose}><p>You have no items in your cart</p></NoItems>}
         <div className="header">
           <button className="closeBtn" onClick={handleClose}>
             <Image src={close} alt="close" unoptimized priority />

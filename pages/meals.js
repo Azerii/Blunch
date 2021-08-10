@@ -15,7 +15,7 @@ const Wrapper = styled(Container)`
 
   >.content {
     width: 100%;
-    height: calc(100vh - ${props => props.orders.length ? 24 : 19.2}rem);
+    height: calc(100vh - ${props => props.orders.length ? 24 : 14.4}rem);
     display: grid;
     grid-template-columns: 1fr;
     overflow-y: auto;
@@ -195,7 +195,7 @@ export default function Meals({ menu }) {
                 <h3 className="fontRegular">{day}</h3>
               </div>
               {menu[day]?.map((meal, index) => (
-                <MealCard key={`${index}${meal.id}`} {...meal} day={day} handleMealSelect={handleMealSelect} />
+                <MealCard key={`${index}${meal.id}`} {...meal} day={day} handleMealSelect={handleMealSelect} orders={orders} />
               ))}
             </Section>
             ))}

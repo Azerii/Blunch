@@ -93,10 +93,11 @@ const MealCard = (props) => {
     const _day = _date.getDay();
     const _hours = _date.getHours();
     const cart = JSON.parse(localStorage.getItem("cart"));
-    const isInCart = cart.some(item => item.id === id && item.day === day);
-    const isPastTime = _hours >= 14 && day <= _day;
-  
-    return !isInCart && !isPastTime;
+    const isInCart = cart.some(item => item.id === id && item.pivot.day_id === day);
+    const isValidDay = day >= _day;
+    const isPastTime = day === day && _hours >= 14
+    
+    return !isInCart && isValidDay && !isPastTime;
   }
 
   const handleClick = (e) => {
@@ -105,7 +106,6 @@ const MealCard = (props) => {
     let selected_meal = {
       ...props,
       day,
-      photo: "/temp_meal.png",
       quantity: 1
     }
 
@@ -117,7 +117,7 @@ const MealCard = (props) => {
   useEffect(() => {
     setCanAdd(canAddToCart(props.id, props.pivot.day_id));
     // eslint-disable-next-line
-  }, [])
+  }, [props.orders])
 
   return (
     <Wrapper>
