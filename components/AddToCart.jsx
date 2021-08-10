@@ -57,6 +57,8 @@ const Wrapper = styled.div`
 
 const Content = styled.div`
   width: 100%;
+  height: 80vh;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   align-items: center;

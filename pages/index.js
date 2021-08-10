@@ -143,9 +143,9 @@ export default function Home({locations}) {
       <Wrapper>
         <AlertBox className="alertBox" success={success} text={alertText} />
         <div className="contentLeft">
-          <h1 className="text1">Welcome to</h1>
+          <h1 className="text1 fontRegular">Welcome to</h1>
           <h1 className="text2">Blunch.ng</h1>
-          <h5 className="text3">Breakfast at your doorstep</h5>
+          <h5 className="text3 fontRegular">Breakfast at your doorstep</h5>
           <form onSubmit={handleSubmit}>
             <Dropdown id="locationInput" name="location" className="dropdown" list={locations} value={location} setValue={setLocation} />
             <Button text="View meals" fullWidth />

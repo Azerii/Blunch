@@ -125,8 +125,8 @@ const MealCard = (props) => {
         <Image src={`/menu/${name}.jpg`} alt={name} width={100} height={100} unoptimized priority />
       </div>
       <div className="content">
-        <h4 className="mealName">{name}</h4>
-        <p className="sup mealPrice">NGN {formatNumber(price)}</p>
+        <h4 className="mealName fontBold">{name}</h4>
+        <p className="sup mealPrice fontRegular">NGN {formatNumber(price)}</p>
         <Button className="btn sup" text="Add to cart" onClick={handleClick} disabled={!canAdd} />
       </div>
     </Wrapper>

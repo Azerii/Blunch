@@ -12,11 +12,10 @@ import PreCheckout from '../components/Cart'
 import Head from 'next/head'
 
 const Wrapper = styled(Container)`
-  padding-bottom: 10.8rem;
 
   >.content {
     width: 100%;
-    height: calc(100vh - 19.2rem);
+    height: calc(100vh - ${props => props.orders.length ? 24 : 19.2}rem);
     display: grid;
     grid-template-columns: 1fr;
     overflow-y: auto;
@@ -27,9 +26,9 @@ const Wrapper = styled(Container)`
   }
 
   @media screen and (min-width: 768px) {
-    padding-bottom: unset;
 
     >.content {
+      height: calc(100vh - 19.2rem);
       grid-template-columns: 2fr 1fr;
       grid-gap: 3.2rem;
       padding-bottom: unset;
@@ -43,8 +42,8 @@ const Wrapper = styled(Container)`
 const Header = styled.div`
   position: sticky;
   top: 0;
-  padding-top: 10.8rem;
-  padding-bottom: 4.8rem;
+  padding-top: 7.2rem;
+  padding-bottom: 3.6rem;
 
   .inner {
     display: flex;
@@ -60,6 +59,9 @@ const Header = styled.div`
   }
 
   @media screen and (min-width: 768px) {
+    padding-top: 10.8rem;
+    padding-bottom: 3.6rem;
+
     .inner {
       max-width: 32.7rem;
     }
@@ -95,7 +97,7 @@ const CartPreview = styled.div`
   width: 100vw;
   background-color: var(--text);
   padding: 0 1.6rem;
-  border-radius: 2rem;
+  border-radius: 2rem 2rem 0 0;
   position: fixed;
   bottom: 0;
   color: var(--white);
@@ -178,7 +180,7 @@ export default function Meals({ menu }) {
       </CartPreview>}
       <AddToCart content={selectedMeal} setOrders={setOrders} />
       <PreCheckout orders={orders} setOrders={setOrders} />
-      <Wrapper>
+      <Wrapper orders={orders}>
         <Header>
           <div className="inner">
             <Dropdown id="locationInput" className="locationInput" name="location" setValue={setLocation} value={location} hasIcon icon="/map_pin.svg" readOnly />
@@ -190,7 +192,7 @@ export default function Meals({ menu }) {
             {menu && Object.keys(menu).map(day => (
               <Section key={day} id={day} >
               <div className="title">
-                <h3>{day}</h3>
+                <h3 className="fontRegular">{day}</h3>
               </div>
               {menu[day]?.map((meal, index) => (
                 <MealCard key={`${index}${meal.id}`} {...meal} day={day} handleMealSelect={handleMealSelect} />

@@ -23,7 +23,6 @@ const Wrapper = styled.div`
     width: 100%;
     background-color: transparent;
     border: none;
-    font-family: var(--font1);
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -62,7 +61,6 @@ const Wrapper = styled.div`
       right: 2.4rem;
       cursor: pointer;
       color: #8d9091;
-      font-family: Gordita;
       font-size: 14px;
       font-style: normal;
       font-weight: 400;
@@ -78,7 +76,6 @@ const Wrapper = styled.div`
   label {
     display: block;
     color: var(--sup_text);
-    font-family: Gordita;
     font-size: 12px;
     font-style: normal;
     font-weight: 500;

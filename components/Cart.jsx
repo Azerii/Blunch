@@ -44,6 +44,8 @@ const Wrapper = styled.div`
 
 const Content = styled.div`
   width: 100%;
+  height: 80vh;
+  overflow-y: auto;
   display: ${props => props.lg ? "none" : "flex"};
   flex-direction: column;
   background-color: ${props => props.lg ? "var(--text)" : "var(--white)"};
@@ -52,8 +54,6 @@ const Content = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
-  overflow-y: auto;
-  max-height: 70vh;
 
   .header {
     width: 100%;
@@ -225,6 +225,7 @@ const Cart = ({lg, orders, setOrders}) => {
     <Wrapper id="cart">
       <AlertBox className="alertBox" success={success} text={alertText} />
       {orders && <Content className="content">
+        {!orders.length && <NoItems><p>You have no items in your cart</p></NoItems>}
         <div className="header">
           <button className="closeBtn" onClick={handleClose}>
             <Image src={close} alt="close" unoptimized priority />
@@ -234,10 +235,10 @@ const Cart = ({lg, orders, setOrders}) => {
           {orders.map((order, index) => (
             <Order key={`${index}${order.id}`} index={index} _quantity={order.quantity} name={order.name} total={order.total} handleRemove={handleRemove} orders={orders} setOrders={setOrders} />
           ))}
-          <div className="subTotal">
+          {!!orders.length && <div className="subTotal">
             <span className="sup">Sub-total ({orders.length} order{orders.length > 1 ? "s" : ""})</span>
             <span className="sup">NGN {formatNumber(orders.reduce((a, b) => a + b.total, 0))}</span>
-          </div>
+          </div>}
         </div>
         <div className="actionBtns">
           <Button className="btn" text="Checkout" fullWidth onClick={handleCheckout}  />

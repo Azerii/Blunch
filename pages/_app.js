@@ -2,10 +2,26 @@ import { createGlobalStyle, ThemeProvider } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
-    font-family: "Gordita";
+    font-family: "Gordita Bold";
+    font-style: normal;
+    font-weight: normal;
+    src: url("/font/Gordita\ Bold.woff");
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Gordita Medium";
     font-style: normal;
     font-weight: normal;
     src: url("/font/Gordita\ Medium.woff");
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Gordita Regular";
+    font-style: normal;
+    font-weight: normal;
+    src: url("/font/Gordita\ Regular.woff");
     font-display: swap;
   }
 
@@ -21,7 +37,9 @@ const GlobalStyle = createGlobalStyle`
     --info: #1b15c2;
     --border_color: #efefef;
     --white: #ffffff;
-    --font1: "Gordita";
+    --font_bold: "Gordita Bold";
+    --font_medium: "Gordita Medium";
+    --font_regular: "Gordita Regular";
     --filter_grey: brightness(0%) saturate(100%) invert(99%) sepia(58%)
       saturate(216%) hue-rotate(187deg) brightness(112%) contrast(93%);
   }
@@ -45,7 +63,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: var(--font1), -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    font-family: var(--font_medium), -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
       Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
     color: var(--text);
   }
@@ -60,6 +78,14 @@ const GlobalStyle = createGlobalStyle`
     background-color: transparent;
   }
 
+  input,
+  button,
+  select,
+  textarea {
+    font-family: var(--font_medium);
+  }
+
+  input:focus,
   button:focus,
   select:focus,
   textarea:focus {
@@ -76,7 +102,7 @@ const GlobalStyle = createGlobalStyle`
 
   ::placeholder {
     color: var(--sup_text);
-    font-family: var(--font1);
+    font-family: var(--font_medium);
   }
 
   /* Chrome, Safari, Edge, Opera */
@@ -98,10 +124,6 @@ const GlobalStyle = createGlobalStyle`
   a {
     color: inherit;
     text-decoration: none;
-  }
-
-  button {
-    font-family: var(--font1);
   }
 
   /* Headings */
@@ -170,6 +192,14 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 500;
     line-height: 16px;
     letter-spacing: 0em;
+  }
+
+  .fontBold {
+    font-family: var(--font_bold);
+  }
+
+  .fontRegular {
+    font-family: var(--font_regular);
   }
 
 `
