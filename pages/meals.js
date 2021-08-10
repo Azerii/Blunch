@@ -209,7 +209,7 @@ export default function Meals({ menu }) {
 }
 
 export async function getStaticProps() {
-  const res = await axios.get('https://order.blunch.ng/api');
+  const res = await axios.get('https://order.blunch.ng/api/menu');
   const menu = res.data;
 
   if (menu) delete menu.status;
